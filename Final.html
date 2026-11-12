@@ -4,389 +4,392 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MOKA Restaurant</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#101010;color:white;font-family:'Cairo',sans-serif}
-button,input,select,textarea{font-family:inherit}
-button{cursor:pointer}
-header{text-align:center;background:#080808;padding:22px;border-bottom:2px solid #c49b45}
-.logo{font-size:48px;font-weight:900;color:#d6ad55;letter-spacing:5px}
-.subtitle{color:#ddd}
-.screen{display:none;padding:20px;max-width:1150px;margin:auto}
-.screen.active{display:block}
-.center{text-align:center}
-h2{color:#d6ad55;text-align:center}
-.main-btn,.action-btn{background:#c49b45;color:#111;border:0;border-radius:9px;padding:11px 20px;margin:5px;font-weight:800}
-.main-btn{font-size:17px}
-.category-btn{background:#242424;color:#e4bd68;border:1px solid #987638;border-radius:9px;padding:10px 15px;margin:5px}
-.category-btn.active,.category-btn:hover{background:#c49b45;color:#111}
-.categories{display:flex;flex-wrap:wrap;justify-content:center;margin:15px 0}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}
-.card{background:#202020;border:1px solid #8e6c30;border-radius:14px;overflow:hidden;position:relative}
-.card img{width:100%;height:170px;object-fit:cover}
-.card-content{padding:13px}
-.card h3{color:#e3bd6c;margin:5px 0}
-.price{color:#e8c36e;font-size:18px;font-weight:bold}
-.old-price{text-decoration:line-through;color:#999;margin-left:8px}
-.heart{position:absolute;top:10px;left:10px;background:#111;color:white;border:1px solid #d6ad55;border-radius:50%;width:39px;height:39px;font-size:23px}
-.heart.selected{color:#ff526b}
-.stars{color:#e7b94f;margin:8px 0}
-.stars button{background:none;border:0;color:#e7b94f;font-size:22px;padding:0 2px}
-.card select,.field{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #9b7938;background:#111;color:white}
-.card .action-btn{width:100%}
-.top-actions{text-align:center;margin:15px}
-.panel{background:#202020;border:1px solid #987638;border-radius:12px;padding:16px;margin:15px auto;max-width:750px}
-.cart-item{border-bottom:1px solid #555;padding:12px 0}
-.total{font-size:22px;color:#e6bd65;font-weight:bold}
-.invoice{background:white;color:#111;padding:22px;border-radius:10px;max-width:700px;margin:15px auto}
-.invoice h2{color:#111}
-.invoice table{width:100%;border-collapse:collapse}
-.invoice td,.invoice th{border-bottom:1px solid #bbb;padding:9px;text-align:right}
-.invoice .total{color:#111}
-footer{text-align:center;color:#999;padding:20px}
-@media print{
-body{background:white}
-body *{visibility:hidden}
-#invoice,#invoice *{visibility:visible}
-#invoice{position:absolute;top:0;right:0;width:100%;margin:0}
-}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#d6ad60;--bg:#090909;--card:#191919;--green:#239b56}
+body{font-family:Cairo,sans-serif;background:var(--bg);color:white}
+button,select{font-family:inherit;cursor:pointer}
+#languageScreen{min-height:100vh;display:grid;place-items:center;text-align:center;padding:20px;background:linear-gradient(#000b,#000d),url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4') center/cover}
+.language-box{background:#111e;border:1px solid var(--gold);padding:40px 25px;border-radius:22px;width:100%;max-width:480px}
+.logo{font-size:65px;color:var(--gold);font-weight:900;letter-spacing:9px}
+.language-box p{color:#bbb;margin:12px}
+.language-buttons{display:flex;gap:12px;margin-top:20px}
+.language-buttons button{flex:1;padding:13px;background:var(--gold);border:0;border-radius:10px;font-size:17px;font-weight:bold}
+#website{display:none}
+header{text-align:center;padding:65px 15px;background:linear-gradient(#0009,#000c),url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0') center/cover;border-bottom:2px solid var(--gold)}
+header .brand{font-size:65px;color:var(--gold);font-weight:900;letter-spacing:9px}
+header h2{font-size:27px}
+header p{color:#ddd;margin:12px}
+.gold-btn,.outline-btn{padding:11px 23px;border-radius:30px;font-weight:bold;margin:5px}
+.gold-btn{background:var(--gold);border:1px solid var(--gold)}
+.outline-btn{background:transparent;color:white;border:1px solid var(--gold)}
+nav{position:sticky;top:0;z-index:10;background:#111f;backdrop-filter:blur(12px);padding:12px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--gold)}
+nav button{background:#222;color:white;border:1px solid #555;border-radius:25px;padding:8px 13px}
+nav button.active,nav button:hover,.cart-button{background:var(--gold);color:#111;border-color:var(--gold)}
+.container{width:93%;max-width:1300px;margin:auto;padding:25px 0}
+.section-title{text-align:center;margin:30px 0}
+.section-title h2{color:var(--gold);font-size:30px}
+.section-title p{color:#aaa}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:22px}
+.item{background:var(--card);border:1px solid #403522;border-radius:16px;overflow:hidden;transition:.25s}
+.item:hover{transform:translateY(-5px);border-color:var(--gold)}
+.item img{width:100%;height:175px;object-fit:cover;display:block}
+.item-content{padding:14px}
+.item h3{color:var(--gold);font-size:19px}
+.item p{color:#aaa;font-size:13px;min-height:38px;margin:5px 0}
+.prices{display:flex;align-items:center;gap:9px;margin:10px 0}
+.old-price{color:#888;text-decoration:line-through;font-size:14px}
+.new-price{color:var(--gold);font-size:20px;font-weight:bold}
+.discount{background:#9d2727;color:white;padding:3px 8px;border-radius:6px;font-size:12px}
+.option-label{display:block;color:#ddd;font-size:13px;margin:9px 0 4px}
+.item select{width:100%;background:#292929;color:white;border:1px solid #555;border-radius:7px;padding:8px}
+.addons{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:8px 0}
+.addons label{font-size:12px;color:#ddd}
+.addons input{accent-color:var(--gold)}
+.add-btn{width:100%;background:var(--gold);border:0;border-radius:8px;padding:10px;font-weight:bold;margin-top:10px}
+.add-btn.added{background:var(--green);color:white}
+.cart-panel,.order-result{display:none;background:#171717;border:1px solid var(--gold);padding:22px;border-radius:16px;margin:30px 0}
+.cart-panel h2,.order-result h2{color:var(--gold);margin-bottom:15px}
+.cart-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #444;flex-wrap:wrap}
+.cart-row strong{color:var(--gold)}
+.quantity{display:flex;align-items:center;gap:9px}
+.quantity button{background:var(--gold);border:0;border-radius:5px;width:27px;height:27px;font-weight:bold}
+.remove{background:#8c2929;color:white;border:0;padding:6px 10px;border-radius:6px}
+.total{text-align:center;color:var(--gold);font-size:23px;font-weight:bold;margin:18px}
+.finish{width:100%;padding:14px;background:var(--gold);border:0;border-radius:9px;font-size:17px;font-weight:bold}
+.empty{text-align:center;color:#aaa;padding:15px}
+.invoice{background:#fff;color:#222;border-radius:12px;padding:20px;margin:15px 0}
+.invoice h3{text-align:center;color:#8a6428;font-size:27px}
+.invoice .line{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed #bbb}
+.invoice .grand{font-size:22px;font-weight:900;color:#158044;border-top:2px solid #888;margin-top:12px;padding-top:12px}
+.invoice .saving{color:#168344;font-weight:bold}
+.order-type{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}
+.order-type button{padding:15px;border:1px solid var(--gold);background:#252525;color:white;border-radius:10px;font-size:16px}
+.order-type button.selected{background:var(--gold);color:#111}
+footer{text-align:center;background:#111;border-top:2px solid var(--gold);padding:30px;margin-top:45px}
+footer h2{color:var(--gold);font-size:32px;letter-spacing:5px}
+footer p{color:#aaa;margin-top:8px}
+@media(max-width:600px){header .brand{font-size:45px}.language-buttons{flex-direction:column}.order-type{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#111}#languageScreen,header,nav,footer,.cart-panel,.order-type,.finish,.outline-btn{display:none!important}#website{display:block!important}.order-result{display:block!important;background:#fff;border:0;padding:0}.invoice{box-shadow:none;border:1px solid #ddd}}
 </style>
 </head>
-
 <body>
 
+<div id="languageScreen">
+ <div class="language-box">
+  <div class="logo">MOKA</div>
+  <h2 id="welcome">مرحباً بك في مطعم موكا</h2>
+  <p>Luxury • Taste • Experience</p>
+  <div class="language-buttons">
+   <button onclick="start('ar')">العربية 🇪🇬</button>
+   <button onclick="start('en')">English 🇬🇧</button>
+  </div>
+ </div>
+</div>
+
+<div id="website">
 <header>
-<div class="logo">MOKA</div>
-<div class="subtitle">مطعم موكا | MOKA Restaurant</div>
+ <div class="brand">MOKA</div>
+ <h2 id="hero">الفخامة تبدأ من المذاق</h2>
+ <p id="heroText">اكتشف عالمًا من النكهات الاستثنائية</p>
+ <button class="gold-btn" onclick="document.getElementById('menuArea').scrollIntoView({behavior:'smooth'})" id="explore">اكتشف القائمة</button>
+ <button class="outline-btn" onclick="changeLanguage()" id="langBtn">English</button>
 </header>
 
-<section id="languageScreen" class="screen active center">
-<h2>أهلاً بك في MOKA</h2>
-<h2>Welcome to MOKA</h2>
-<p>اختر اللغة | Choose your language</p>
-<button class="main-btn" onclick="setLanguage('ar')">العربية</button>
-<button class="main-btn" onclick="setLanguage('en')">English</button>
-</section>
+<nav id="navigation">
+ <button class="active" onclick="filterMenu('all',this)" data-ar="الكل" data-en="All">الكل</button>
+ <button onclick="filterMenu('main',this)" data-ar="الوجبات" data-en="Meals">الوجبات</button>
+ <button onclick="filterMenu('pizza',this)" data-ar="البيتزا" data-en="Pizza">البيتزا</button>
+ <button onclick="filterMenu('grill',this)" data-ar="المشويات" data-en="Grill">المشويات</button>
+ <button onclick="filterMenu('app',this)" data-ar="المقبلات" data-en="Starters">المقبلات</button>
+ <button onclick="filterMenu('salad',this)" data-ar="السلطات" data-en="Salads">السلطات</button>
+ <button onclick="filterMenu('dessert',this)" data-ar="الحلويات" data-en="Desserts">الحلويات</button>
+ <button onclick="filterMenu('drink',this)" data-ar="المشروبات" data-en="Drinks">المشروبات</button>
+ <button onclick="filterMenu('combo',this)" data-ar="وجبات كومبو" data-en="Combo Meals">وجبات كومبو</button>
+ <button onclick="showFavorites(this)" data-ar="المفضلة ♥" data-en="Favorites ♥">المفضلة ♥</button>
+ <button class="cart-button" onclick="toggleCart()" id="cartButton">🛒 الطلبات (0)</button>
+</nav>
 
-<section id="menuScreen" class="screen">
-<h2 id="menuTitle">قائمة الطعام</h2>
-<div class="categories">
-<button class="category-btn active" onclick="showCategory('all',this)" data-ar="الكل" data-en="All">الكل</button>
-<button class="category-btn" onclick="showCategory('meals',this)" data-ar="وجبات" data-en="Meals">وجبات</button>
-<button class="category-btn" onclick="showCategory('combo',this)" data-ar="وجبات كومبو" data-en="Combo Meals">وجبات كومبو</button>
-<button class="category-btn" onclick="showCategory('pizza',this)" data-ar="بيتزا" data-en="Pizza">بيتزا</button>
-<button class="category-btn" onclick="showCategory('grill',this)" data-ar="مشويات" data-en="Grill">مشويات</button>
-<button class="category-btn" onclick="showCategory('starters',this)" data-ar="مقبلات" data-en="Starters">مقبلات</button>
-<button class="category-btn" onclick="showCategory('salads',this)" data-ar="سلطات" data-en="Salads">سلطات</button>
-<button class="category-btn" onclick="showCategory('desserts',this)" data-ar="حلويات" data-en="Desserts">حلويات</button>
-<button class="category-btn" onclick="showCategory('drinks',this)" data-ar="مشروبات" data-en="Drinks">مشروبات</button>
-<button class="category-btn" onclick="showCategory('favorites',this)">❤️ المفضلة</button>
+<main class="container" id="menuArea">
+ <div class="section-title">
+  <h2 id="menuTitle">قائمة طعام MOKA</h2>
+  <p id="menuSubtitle">اختر ما تحب واستمتع بعروضنا</p>
+ </div>
+ <div class="menu" id="menu"></div>
+
+ <div class="cart-panel" id="cartPanel">
+  <h2 id="cartTitle">🛒 طلباتك</h2>
+  <div id="cartItems"></div>
+  <div class="total" id="cartTotal"></div>
+  <button class="finish" onclick="finishOrder()" id="finishButton">تأكيد وإنهاء الطلب</button>
+ </div>
+ <div class="order-result" id="orderResult"></div>
+</main>
+
+<footer>
+ <h2>MOKA</h2>
+ <p id="footerText">حيث تلتقي الفخامة بأجمل النكهات ❤️</p>
+ <p>© 2026 MOKA Restaurant</p>
+</footer>
 </div>
-<div class="top-actions">
-<button class="category-btn" onclick="openCart()">🛒 <span id="cartLabel">السلة</span> (<span id="cartCount">0</span>)</button>
-</div>
-<div class="products" id="products"></div>
-</section>
-
-<section id="cartScreen" class="screen">
-<h2>طلباتك | Your Order</h2>
-<div class="panel">
-<div id="cartItems"></div>
-<p class="total">الإجمالي: <span id="cartTotal">0</span> جنيه</p>
-<button class="main-btn" onclick="clearCart()">إفراغ السلة</button>
-<button class="main-btn" onclick="backToMenu()">العودة للقائمة</button>
-<button class="main-btn" onclick="goToCheckout()">تأكيد الطلب</button>
-</div>
-</section>
-
-<section id="checkoutScreen" class="screen">
-<h2>تأكيد الطلب | Checkout</h2>
-<div class="panel">
-<label>نوع الطلب | Order type</label>
-<select class="field" id="orderType">
-<option value="داخل المطعم">داخل المطعم</option>
-<option value="تيك أواي">تيك أواي</option>
-</select>
-
-<label>طريقة الدفع | Payment method</label>
-<select class="field" id="paymentMethod">
-<option value="نقداً">نقداً عند الاستلام</option>
-<option value="بطاقة بنكية">بطاقة بنكية</option>
-<option value="محفظة إلكترونية">محفظة إلكترونية</option>
-</select>
-
-<label>اسم العميل | Customer name</label>
-<input class="field" id="customerName" placeholder="اكتب اسمك">
-
-<label>ملاحظات | Notes</label>
-<textarea class="field" id="orderNotes" rows="3" placeholder="أي ملاحظات على الطلب"></textarea>
-
-<button class="main-btn" onclick="finishOrder()">إنهاء الطلب</button>
-<button class="main-btn" onclick="openCart()">رجوع</button>
-</div>
-</section>
-
-<section id="invoiceScreen" class="screen">
-<h2>فاتورة MOKA</h2>
-<div class="invoice" id="invoice">
-<h2>MOKA Restaurant</h2>
-<p>مطعم موكا</p>
-<p id="invoiceDate"></p>
-<p id="invoiceCustomer"></p>
-<p id="invoiceType"></p>
-<p id="invoicePayment"></p>
-<table>
-<thead><tr><th>الصنف</th><th>العدد</th><th>السعر</th></tr></thead>
-<tbody id="invoiceRows"></tbody>
-</table>
-<p id="invoiceNotes"></p>
-<p class="total">الإجمالي: <span id="invoiceTotal"></span> جنيه</p>
-<p style="text-align:center">شكراً لاختياركم MOKA ❤️</p>
-</div>
-<div class="center">
-<button class="main-btn" onclick="window.print()">طباعة الفاتورة</button>
-<button class="main-btn" onclick="newOrder()">طلب جديد</button>
-</div>
-</section>
-
-<footer>© MOKA Restaurant</footer>
 
 <script>
-let language='ar';
-let currentCategory='all';
-let cart=[];
-let favorites=JSON.parse(localStorage.getItem('mokaFavorites')||'[]');
-let ratings=JSON.parse(localStorage.getItem('mokaRatings')||'{}');
-
 const products=[
-{id:1,cat:'meals',ar:'وجبة برجر',en:'Burger Meal',price:180,off:10,img:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600'},
-{id:2,cat:'meals',ar:'وجبة فراخ كرسبي',en:'Crispy Chicken Meal',price:160,off:0,img:'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600'},
-{id:3,cat:'meals',ar:'وجبة شاورما فراخ',en:'Chicken Shawarma Meal',price:150,off:0,img:'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600'},
-{id:4,cat:'meals',ar:'وجبة كفتة',en:'Kofta Meal',price:190,off:5,img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=600'},
-{id:5,cat:'meals',ar:'وجبة زنجر',en:'Zinger Meal',price:170,off:0,img:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600'},
-{id:6,cat:'meals',ar:'وجبة تشيكن ستيك',en:'Chicken Steak Meal',price:210,off:0,img:'https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=600'},
-
-{id:45,cat:'combo',ar:'كومبو برجر',en:'Burger Combo',price:220,off:5,img:'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600'},
-{id:46,cat:'combo',ar:'كومبو زنجر',en:'Zinger Combo',price:210,off:0,img:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600'},
-{id:47,cat:'combo',ar:'كومبو شاورما',en:'Shawarma Combo',price:200,off:0,img:'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600'},
-{id:48,cat:'combo',ar:'كومبو فراخ كرسبي',en:'Crispy Chicken Combo',price:215,off:0,img:'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600'},
-{id:49,cat:'combo',ar:'كومبو ميكس',en:'Mixed Combo',price:260,off:10,img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=600'},
-
-{id:7,cat:'pizza',ar:'بيتزا مارجريتا',en:'Margherita Pizza',price:160,off:0,img:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600'},
-{id:8,cat:'pizza',ar:'بيتزا بيبروني',en:'Pepperoni Pizza',price:210,off:10,img:'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600'},
-{id:9,cat:'pizza',ar:'بيتزا فراخ',en:'Chicken Pizza',price:200,off:0,img:'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600'},
-{id:10,cat:'pizza',ar:'بيتزا ميكس جبن',en:'Four Cheese Pizza',price:220,off:0,img:'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600'},
-
-{id:11,cat:'grill',ar:'كباب مشوي',en:'Grilled Kebab',price:280,off:0,img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=600'},
-{id:12,cat:'grill',ar:'كفتة مشوية',en:'Grilled Kofta',price:240,off:0,img:'https://images.unsplash.com/photo-1558030006-450675393462?w=600'},
-{id:13,cat:'grill',ar:'فراخ مشوية',en:'Grilled Chicken',price:260,off:5,img:'https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=600'},
-
-{id:14,cat:'starters',ar:'بطاطس مقلية',en:'French Fries',price:55,off:0,img:'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600'},
-{id:15,cat:'starters',ar:'حلقات بصل',en:'Onion Rings',price:65,off:0,img:'https://images.unsplash.com/photo-1639024471283-03518883512d?w=600'},
-{id:16,cat:'starters',ar:'موزاريلا ستيكس',en:'Mozzarella Sticks',price:85,off:0,img:'https://images.unsplash.com/photo-1531749668029-2db88e4276c7?w=600'},
-
-{id:17,cat:'salads',ar:'سلطة خضراء',en:'Green Salad',price:45,off:0,img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600'},
-{id:18,cat:'salads',ar:'سلطة سيزر',en:'Caesar Salad',price:95,off:0,img:'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=600'},
-{id:19,cat:'salads',ar:'كول سلو',en:'Coleslaw',price:50,off:0,img:'https://images.unsplash.com/photo-1625938145744-e380515399bf?w=600'},
-
-{id:20,cat:'desserts',ar:'تشيز كيك',en:'Cheesecake',price:90,off:0,img:'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=600'},
-{id:21,cat:'desserts',ar:'براونيز',en:'Brownies',price:75,off:0,img:'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600'},
-{id:22,cat:'desserts',ar:'مولتن كيك',en:'Molten Cake',price:100,off:0,img:'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600'},
-{id:23,cat:'desserts',ar:'آيس كريم',en:'Ice Cream',price:60,off:0,img:'https://images.unsplash.com/photo-1501446529957-6226bd447c46?w=600'},
-
-{id:24,cat:'drinks',ar:'كولا',en:'Cola',price:30,off:0,img:'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=600'},
-{id:25,cat:'drinks',ar:'عصير برتقال',en:'Orange Juice',price:45,off:0,img:'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600'},
-{id:26,cat:'drinks',ar:'ليمون بالنعناع',en:'Lemon Mint',price:50,off:0,img:'https://images.unsplash.com/photo-1513558161293-cdaf765edfd4?w=600'},
-{id:27,cat:'drinks',ar:'مياه معدنية',en:'Mineral Water',price:15,off:0,img:'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=600'}
+{id:1,cat:'main',price:180,off:15,ar:'موكا كينج برجر',en:'MOKA King Burger',descAr:'برجر لحم فاخر وجبنة وصوص موكا',descEn:'Premium beef, cheese and MOKA sauce',img:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd'},
+{id:2,cat:'main',price:220,off:10,ar:'دبل برجر',en:'Double Burger',descAr:'قطعتان لحم مع جبنة شيدر',descEn:'Double beef and cheddar cheese',img:'https://images.unsplash.com/photo-1550547660-d9450f859349'},
+{id:3,cat:'main',price:160,off:12,ar:'تشيز برجر',en:'Cheese Burger',descAr:'برجر بالجبنة الذائبة وصوص خاص',descEn:'Cheese burger with special sauce',img:'https://images.unsplash.com/photo-1571091718767-18b5b1457add'},
+{id:4,cat:'main',price:190,off:10,ar:'كرسبي تشيكن',en:'Crispy Chicken',descAr:'دجاج مقرمش وخس وصوص موكا',descEn:'Crispy chicken, lettuce and MOKA sauce',img:'https://images.unsplash.com/photo-1606755962773-d324e0a13086'},
+{id:5,cat:'main',price:175,off:0,ar:'شيش طاووق',en:'Shish Tawook',descAr:'دجاج متبل وخضروات طازجة',descEn:'Marinated chicken and vegetables',img:'https://images.unsplash.com/photo-1529006557810-274b9b2fc783'},
+{id:6,cat:'main',price:210,off:15,ar:'وجبة بانيه',en:'Chicken Pane Meal',descAr:'فراخ بانيه وبطاطس وصوص',descEn:'Chicken pane, fries and sauce',img:'https://images.unsplash.com/photo-1562967914-608f82629710'},
+{id:7,cat:'main',price:240,off:10,ar:'زنجر',en:'Chicken Zinger',descAr:'دجاج حار مقرمش',descEn:'Spicy crispy chicken',img:'https://images.unsplash.com/photo-1606755962773-d324e0a13086'},
+{id:8,cat:'main',price:230,off:0,ar:'هوت دوج',en:'Hot Dog',descAr:'هوت دوج بصوص موكا',descEn:'Hot dog with MOKA sauce',img:'https://images.unsplash.com/photo-1612392062798-2dbaa8f3b4c2'},
+{id:9,cat:'pizza',price:200,off:15,ar:'بيتزا بيبروني',en:'Pepperoni Pizza',descAr:'موتزاريلا وبيبروني',descEn:'Mozzarella and pepperoni',img:'https://images.unsplash.com/photo-1628840042765-356cda07504e'},
+{id:10,cat:'pizza',price:170,off:10,ar:'بيتزا مارجريتا',en:'Margherita Pizza',descAr:'طماطم وموتزاريلا وريحان',descEn:'Tomato, mozzarella and basil',img:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002'},
+{id:11,cat:'pizza',price:230,off:12,ar:'بيتزا ميكس',en:'Mixed Pizza',descAr:'تشكيلة من المكونات الشهية',descEn:'A delicious mix of toppings',img:'https://images.unsplash.com/photo-1513104890138-7c749659a591'},
+{id:12,cat:'pizza',price:220,off:0,ar:'بيتزا باربيكيو',en:'BBQ Chicken Pizza',descAr:'فراخ وصوص باربيكيو',descEn:'Chicken and BBQ sauce',img:'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e'},
+{id:13,cat:'pizza',price:210,off:10,ar:'بيتزا سجق',en:'Sausage Pizza',descAr:'سجق وجبن ومكونات طازجة',descEn:'Sausage and fresh cheese',img:'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47'},
+{id:14,cat:'pizza',price:250,off:15,ar:'بيتزا فور تشيز',en:'Four Cheese Pizza',descAr:'أربعة أنواع من الجبن',descEn:'Four kinds of cheese',img:'https://images.unsplash.com/photo-1579751626657-72bc17010498'},
+{id:15,cat:'grill',price:260,off:10,ar:'كفتة مشوية',en:'Grilled Kofta',descAr:'كفتة بتتبيلة موكا الخاصة',descEn:'Kofta with MOKA seasoning',img:'https://images.unsplash.com/photo-1544025162-d76694265947'},
+{id:16,cat:'grill',price:290,off:15,ar:'فراخ مشوية',en:'Grilled Chicken',descAr:'دجاج مشوي على الفحم',descEn:'Charcoal grilled chicken',img:'https://images.unsplash.com/photo-1532550907401-a500c9a57435'},
+{id:17,cat:'grill',price:320,off:10,ar:'ميكس جريل',en:'Mixed Grill',descAr:'تشكيلة من اللحوم المشوية',descEn:'Selection of grilled meats',img:'https://images.unsplash.com/photo-1558030006-450675393462'},
+{id:18,cat:'grill',price:300,off:0,ar:'شيش طاووق مشوي',en:'Grilled Shish Tawook',descAr:'قطع دجاج مشوية متبلة',descEn:'Marinated grilled chicken',img:'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0'},
+{id:19,cat:'grill',price:350,off:10,ar:'ريش ضاني',en:'Lamb Chops',descAr:'ريش ضاني مشوية',descEn:'Grilled lamb chops',img:'https://images.unsplash.com/photo-1544025162-d76694265947'},
+{id:20,cat:'app',price:65,off:0,ar:'بطاطس مقرمشة',en:'Crispy Fries',descAr:'بطاطس ذهبية مع صوص موكا',descEn:'Golden fries with MOKA sauce',img:'https://images.unsplash.com/photo-1573080496219-bb080dd4f877'},
+{id:21,cat:'app',price:85,off:10,ar:'حلقات بصل',en:'Onion Rings',descAr:'حلقات بصل مقرمشة',descEn:'Crispy onion rings',img:'https://images.unsplash.com/photo-1639024471283-03518883512d'},
+{id:22,cat:'app',price:100,off:0,ar:'أصابع موزاريلا',en:'Mozzarella Sticks',descAr:'أصابع جبن مقرمشة',descEn:'Crispy mozzarella sticks',img:'https://images.unsplash.com/photo-1531749668029-2db88e4276c7'},
+{id:23,cat:'app',price:90,off:10,ar:'تشيكن ناجتس',en:'Chicken Nuggets',descAr:'قطع دجاج مقرمشة',descEn:'Crispy chicken bites',img:'https://images.unsplash.com/photo-1562967914-608f82629710'},
+{id:24,cat:'app',price:75,off:0,ar:'سمبوسة بالجبن',en:'Cheese Sambousek',descAr:'سمبوسة محشوة بالجبن',descEn:'Cheese-filled pastry',img:'https://images.unsplash.com/photo-1601050690597-df0568f70950'},
+{id:25,cat:'app',price:110,off:10,ar:'فرايز بالجبنة',en:'Cheese Fries',descAr:'بطاطس مع جبنة وصوص',descEn:'Fries with cheese and sauce',img:'https://images.unsplash.com/photo-1518013431117-eb1465fa5752'},
+{id:26,cat:'salad',price:70,off:0,ar:'سلطة خضراء',en:'Green Salad',descAr:'خضروات طازجة متنوعة',descEn:'Fresh mixed vegetables',img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd'},
+{id:27,cat:'salad',price:85,off:10,ar:'سلطة سيزر',en:'Caesar Salad',descAr:'خس ودجاج وصوص سيزر',descEn:'Lettuce, chicken and Caesar dressing',img:'https://images.unsplash.com/photo-1546793665-c74683f339c1'},
+{id:28,cat:'salad',price:75,off:0,ar:'فتوش',en:'Fattoush',descAr:'سلطة شرقية بالخبز المحمص',descEn:'Middle Eastern salad with toasted bread',img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd'},
+{id:29,cat:'salad',price:65,off:0,ar:'سلطة طحينة',en:'Tahini Salad',descAr:'طحينة بالليمون والتوابل',descEn:'Tahini with lemon and spices',img:'https://images.unsplash.com/photo-1547592180-85f173990554'},
+{id:30,cat:'dessert',price:120,off:15,ar:'تشيز كيك',en:'Cheesecake',descAr:'حلوى كريمية بطعم مميز',descEn:'Delicious creamy cheesecake',img:'https://images.unsplash.com/photo-1533134242443-d4fd215305ad'},
+{id:31,cat:'dessert',price:110,off:10,ar:'براونيز',en:'Brownies',descAr:'براونيز غني بالشوكولاتة',descEn:'Rich chocolate brownies',img:'https://images.unsplash.com/photo-1606313564200-e75d5e30476c'},
+{id:32,cat:'dessert',price:100,off:0,ar:'مولتن كيك',en:'Molten Cake',descAr:'كيك شوكولاتة بقلب سائل',descEn:'Chocolate cake with molten center',img:'https://images.unsplash.com/photo-1606313564200-e75d5e30476c'},
+{id:33,cat:'dessert',price:90,off:10,ar:'آيس كريم',en:'Ice Cream',descAr:'آيس كريم بنكهات متنوعة',descEn:'Ice cream in different flavors',img:'https://images.unsplash.com/photo-1563805042-7684c019e1cb'},
+{id:34,cat:'dessert',price:130,off:0,ar:'كنافة بالقشطة',en:'Kunafa with Cream',descAr:'كنافة شرقية بالقشطة',descEn:'Traditional kunafa with cream',img:'https://images.unsplash.com/photo-1579888944880-d98341245702'},
+{id:35,cat:'dessert',price:110,off:10,ar:'أم علي',en:'Om Ali',descAr:'حلوى شرقية بالمكسرات',descEn:'Egyptian dessert with nuts',img:'https://images.unsplash.com/photo-1488477181946-6428a0291777'},
+{id:36,cat:'drink',price:55,off:0,ar:'عصير برتقال',en:'Orange Juice',descAr:'برتقال طبيعي طازج',descEn:'Fresh natural orange juice',img:'https://images.unsplash.com/photo-1613478223719-2ab802602423'},
+{id:37,cat:'drink',price:60,off:10,ar:'عصير مانجو',en:'Mango Juice',descAr:'عصير مانجو منعش',descEn:'Refreshing mango juice',img:'https://images.unsplash.com/photo-1605027990121-3b8c5a3c2e5f'},
+{id:38,cat:'drink',price:55,off:0,ar:'عصير فراولة',en:'Strawberry Juice',descAr:'فراولة طبيعية',descEn:'Fresh strawberry juice',img:'https://images.unsplash.com/photo-1553530666-ba11a7da3888'},
+{id:39,cat:'drink',price:75,off:15,ar:'آيس موكا',en:'Iced Mocha',descAr:'قهوة وشوكولاتة بالحليب',descEn:'Coffee, chocolate and milk',img:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735'},
+{id:40,cat:'drink',price:70,off:10,ar:'ميلك شيك',en:'Milkshake',descAr:'مشروب حليب كريمي',descEn:'Creamy milkshake',img:'https://images.unsplash.com/photo-1572490122747-3968b75cc699'},
+{id:41,cat:'drink',price:50,off:0,ar:'قهوة تركي',en:'Turkish Coffee',descAr:'قهوة تركية طازجة',descEn:'Fresh Turkish coffee',img:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd'},
+{id:42,cat:'drink',price:60,off:10,ar:'كابتشينو',en:'Cappuccino',descAr:'قهوة بالحليب ورغوة ناعمة',descEn:'Coffee with creamy milk foam',img:'https://images.unsplash.com/photo-1534778101976-62847782c213'},
+{id:43,cat:'drink',price:45,off:0,ar:'ليمون نعناع',en:'Lemon Mint',descAr:'ليمون منعش بالنعناع',descEn:'Refreshing lemon and mint',img:'https://images.unsplash.com/photo-1513558161293-cdaf765edfd4'},
+{id:44,cat:'drink',price:35,off:0,ar:'مياه معدنية',en:'Mineral Water',descAr:'مياه معدنية باردة',descEn:'Cold mineral water',img:'https://images.unsplash.com/photo-1548839140-29a749e1cf4d'},
+{id:45,cat:'combo',price:215,off:12,ar:'كومبو موكا برجر',en:'MOKA Burger Combo',descAr:'برجر موكا + بطاطس + مشروب',descEn:'MOKA burger + fries + drink',img:'https://images.unsplash.com/photo-1550547660-d9450f859349'},
+{id:46,cat:'combo',price:235,off:10,ar:'كومبو البيتزا',en:'Pizza Combo',descAr:'بيتزا مارجريتا + بطاطس + عصير',descEn:'Margherita pizza + fries + juice',img:'https://images.unsplash.com/photo-1513104890138-7c749659a591'},
+{id:47,cat:'combo',price:265,off:12,ar:'كومبو الدجاج',en:'Chicken Combo',descAr:'دجاج مقرمش + بطاطس + مشروب',descEn:'Crispy chicken + fries + drink',img:'https://images.unsplash.com/photo-1606755962773-d324e0a13086'},
+{id:48,cat:'combo',price:285,off:10,ar:'كومبو المشويات',en:'Grill Combo',descAr:'كفتة + شيش طاووق + أرز + سلطة',descEn:'Kofta + shish tawook + rice + salad',img:'https://images.unsplash.com/photo-1544025162-d76694265947'},
+{id:49,cat:'combo',price:520,off:15,ar:'كومبو العائلة',en:'Family Combo',descAr:'برجران + بيتزا + بطاطس كبيرة + 3 مشروبات',descEn:'2 burgers + pizza + large fries + 3 drinks',img:'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd'},
+{id:50,cat:'combo',price:195,off:10,ar:'كومبو الحلو',en:'Dessert Combo',descAr:'قطعتا حلوى + مشروبان ساخنان',descEn:'Two desserts + two hot drinks',img:'https://images.unsplash.com/photo-1488477181946-6428a0291777'}
 ];
 
-function setLanguage(lang){
+const extras=[
+{ar:'جبنة شيدر',en:'Cheddar Cheese',price:15},
+{ar:'موتزاريلا',en:'Mozzarella',price:20},
+{ar:'مشروم',en:'Mushrooms',price:15},
+{ar:'صوص موكا',en:'MOKA Sauce',price:10},
+{ar:'صوص باربيكيو',en:'BBQ Sauce',price:10},
+{ar:'صوص رانش',en:'Ranch Sauce',price:10}
+];
+
+let language='ar',cart=[],currentFilter='all',orderType='',paymentMethod='cash',favorites=JSON.parse(localStorage.getItem('mokaFavorites')||'[]'),ratings=JSON.parse(localStorage.getItem('mokaRatings')||'{}'),favoritesOnly=false;
+
+function start(lang){
  language=lang;
+ document.getElementById('languageScreen').style.display='none';
+ document.getElementById('website').style.display='block';
  document.documentElement.lang=lang;
  document.documentElement.dir=lang==='ar'?'rtl':'ltr';
- document.getElementById('languageScreen').classList.remove('active');
- document.getElementById('menuScreen').classList.add('active');
- document.getElementById('menuTitle').textContent=lang==='ar'?'قائمة الطعام':'Our Menu';
- document.getElementById('cartLabel').textContent=lang==='ar'?'السلة':'Cart';
- document.querySelectorAll('.category-btn[data-ar]').forEach(b=>{
-  b.textContent=lang==='ar'?b.dataset.ar:b.dataset.en;
- });
- showCategory('all');
+ updateLanguage();renderMenu();
 }
-
-function showScreen(id){
- document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
- document.getElementById(id).classList.add('active');
+function changeLanguage(){
+ language=language==='ar'?'en':'ar';
+ document.documentElement.lang=language;
+ document.documentElement.dir=language==='ar'?'rtl':'ltr';
+ updateLanguage();renderMenu();
 }
-
-function showCategory(cat,btn){
- currentCategory=cat;
- document.querySelectorAll('.categories .category-btn').forEach(b=>b.classList.remove('active'));
- if(btn)btn.classList.add('active');
- else{
-  const buttons=document.querySelectorAll('.categories .category-btn');
-  buttons.forEach(b=>{
-   if(b.getAttribute('onclick').includes("'"+cat+"'"))b.classList.add('active');
-  });
- }
-
- let list=products.filter(p=>{
-  if(cat==='all')return true;
-  if(cat==='favorites')return favorites.includes(p.id);
-  return p.cat===cat;
- });
-
- const container=document.getElementById('products');
- container.innerHTML='';
-
- if(list.length===0){
-  container.innerHTML='<p class="center">لا توجد أصناف في هذا القسم حالياً</p>';
-  return;
- }
-
- list.forEach(p=>{
-  let name=language==='ar'?p.ar:p.en;
-  let finalPrice=Math.round(p.price*(100-p.off)/100);
-  let isFav=favorites.includes(p.id);
-  let rating=ratings[p.id]||0;
-
-  container.innerHTML+=`
-  <div class="card">
-   <button class="heart ${isFav?'selected':''}" onclick="toggleFavorite(${p.id})">${isFav?'♥':'♡'}</button>
-   <img src="${p.img}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600'">
-   <div class="card-content">
-    <h3>${name}</h3>
-    <div class="price">
-     ${p.off?`<span class="old-price">${p.price} ج</span>`:''}
-     ${finalPrice} جنيه
-    </div>
-    <div class="stars">
-     ${[1,2,3,4,5].map(n=>`<button onclick="rateProduct(${p.id},${n})">${n<=rating?'★':'☆'}</button>`).join('')}
-     <small>${language==='ar'?'قيّم الصنف':'Rate this item'}</small>
-    </div>
-    <select id="size-${p.id}">
-     <option value="عادي">عادي</option>
-     <option value="كبير">كبير (+30 جنيه)</option>
-     <option value="عائلي">عائلي (+60 جنيه)</option>
-    </select>
-    <select id="extra-${p.id}">
-     <option value="بدون إضافات">بدون إضافات</option>
-     <option value="جبنة إضافية">جبنة إضافية (+15 جنيه)</option>
-     <option value="صوص إضافي">صوص إضافي (+10 جنيه)</option>
-     <option value="بطاطس إضافية">بطاطس إضافية (+20 جنيه)</option>
-    </select>
-    <button class="action-btn" onclick="addToCart(${p.id})">${language==='ar'?'أضف إلى السلة':'Add to cart'}</button>
-   </div>
-  </div>`;
- });
-}
-
-function toggleFavorite(id){
- if(favorites.includes(id))favorites=favorites.filter(x=>x!==id);
- else favorites.push(id);
- localStorage.setItem('mokaFavorites',JSON.stringify(favorites));
- showCategory(currentCategory);
-}
-
-function rateProduct(id,value){
- ratings[id]=value;
- localStorage.setItem('mokaRatings',JSON.stringify(ratings));
- showCategory(currentCategory);
-}
-
-function addToCart(id){
- let p=products.find(x=>x.id===id);
- let size=document.getElementById('size-'+id).value;
- let extra=document.getElementById('extra-'+id).value;
- let price=Math.round(p.price*(100-p.off)/100);
-
- if(size==='كبير')price+=30;
- if(size==='عائلي')price+=60;
- if(extra==='جبنة إضافية')price+=15;
- if(extra==='صوص إضافي')price+=10;
- if(extra==='بطاطس إضافية')price+=20;
-
- let old=cart.find(x=>x.id===id&&x.size===size&&x.extra===extra);
- if(old)old.qty++;
- else cart.push({id,name:language==='ar'?p.ar:p.en,size,extra,price,qty:1});
-
+function updateLanguage(){
+ const ar=language==='ar';
+ const t={
+ hero:['الفخامة تبدأ من المذاق','Luxury Begins with Taste'],
+ heroText:['اكتشف عالمًا من النكهات الاستثنائية','Discover Exceptional Flavors'],
+ explore:['اكتشف القائمة','Explore Menu'],
+ langBtn:['English','العربية'],
+ menuTitle:['قائمة طعام MOKA','MOKA Menu'],
+ menuSubtitle:['اختر ما تحب واستمتع بعروضنا','Choose your favorites and enjoy our offers'],
+ cartTitle:['🛒 طلباتك','🛒 Your Order'],
+ finishButton:['تأكيد وإنهاء الطلب','Confirm Order'],
+ footerText:['حيث تلتقي الفخامة بأجمل النكهات ❤️','Where Luxury Meets Great Taste ❤️']
+ };
+ for(const id in t)document.getElementById(id).textContent=t[id][ar?0:1];
+ document.querySelectorAll('#navigation button:not(.cart-button)').forEach(b=>b.textContent=b.dataset[language]);
  updateCart();
- alert(language==='ar'?'تمت إضافة الصنف إلى السلة':'Item added to cart');
 }
+function filterMenu(cat,btn){
+ favoritesOnly=false;currentFilter=cat;
+ document.querySelectorAll('#navigation button').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');renderMenu();
+}
+function toggleFavorite(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];localStorage.setItem('mokaFavorites',JSON.stringify(favorites));renderMenu();}
+function rateProduct(id,n){ratings[id]=n;localStorage.setItem('mokaRatings',JSON.stringify(ratings));renderMenu();}
+function showFavorites(btn){favoritesOnly=true;currentFilter='all';document.querySelectorAll('#navigation button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderMenu();document.getElementById('menuTitle').textContent=language==='ar'?'الأصناف المفضلة':'Favorite Items';}
 
+function sizeOptions(p){
+ let sizes;
+ if(p.cat==='drink')sizes=[['صغير','Small',0],['وسط','Medium',10],['كبير','Large',20]];
+ else if(p.cat==='dessert'||p.cat==='salad'||p.cat==='app')sizes=[['عادي','Regular',0],['كبير','Large',20]];
+ else sizes=[['صغير','Small',0],['وسط','Medium',25],['كبير','Large',45]];
+ return sizes.map((s,i)=>`<option value="${i}">${language==='ar'?s[0]:s[1]} (+${s[2]} ${language==='ar'?'جنيه':'EGP'})</option>`).join('');
+}
+function renderMenu(){
+ const list=products.filter(p=>(favoritesOnly?favorites.includes(p.id):(currentFilter==='all'||p.cat===currentFilter)));
+ document.getElementById('menu').innerHTML=list.map(p=>{
+ const sale=Math.round(p.price*(100-p.off)/100);
+ return `<div class="item" data-id="${p.id}" style="position:relative">
+ <button onclick="toggleFavorite(${p.id})" style="position:absolute;top:10px;right:10px;z-index:2;background:#111d;color:#d6ad60;border:1px solid #d6ad60;border-radius:50%;width:38px;height:38px;font-size:20px">${favorites.includes(p.id)?'♥':'♡'}</button>
+ <img src="${p.img}" alt="${p[language]}" loading="lazy">
+ <div class="item-content">
+ <h3>${p[language]}</h3>
+ <p>${p[language==='ar'?'descAr':'descEn']}</p>
+ <div style="color:var(--gold);font-size:18px;margin:5px 0">${[1,2,3,4,5].map(n=>`<span onclick=\"rateProduct(${p.id},${n})\" style=\"cursor:pointer\">${n<=(ratings[p.id]||0)?'★':'☆'}</span>`).join('')}</div>
+ <div class="prices">
+ ${p.off?`<span class="old-price">${p.price} ${language==='ar'?'جنيه':'EGP'}</span><span class="new-price">${sale} ${language==='ar'?'جنيه':'EGP'}</span><span class="discount">-${p.off}%</span>`:`<span class="new-price">${p.price} ${language==='ar'?'جنيه':'EGP'}</span>`}
+ </div>
+ <label class="option-label">${language==='ar'?'اختار الحجم':'Choose Size'}</label>
+ <select class="size-select">${sizeOptions(p)}</select>
+ <label class="option-label">${language==='ar'?'إضافات اختيارية':'Optional Extras'}</label>
+ <div class="addons">${extras.map((e,i)=>`<label><input type="checkbox" value="${i}"> ${language==='ar'?e.ar:e.en} (+${e.price})</label>`).join('')}</div>
+ <button class="add-btn" onclick="addToCart(${p.id},this)">${language==='ar'?'＋ أضف للطلب':'＋ Add to Order'}</button>
+ </div></div>`;
+ }).join('');
+}
+function addToCart(id,btn){
+ const p=products.find(x=>x.id===id);
+ const card=btn.closest('.item');
+ const sizeIndex=Number(card.querySelector('.size-select').value);
+ let sizes;
+ if(p.cat==='drink')sizes=[['صغير','Small',0],['وسط','Medium',10],['كبير','Large',20]];
+ else if(p.cat==='dessert'||p.cat==='salad'||p.cat==='app')sizes=[['عادي','Regular',0],['كبير','Large',20]];
+ else sizes=[['صغير','Small',0],['وسط','Medium',25],['كبير','Large',45]];
+ const size=sizes[sizeIndex];
+ const selected=[...card.querySelectorAll('.addons input:checked')].map(x=>extras[Number(x.value)]);
+ const extraTotal=selected.reduce((s,x)=>s+x.price,0);
+ const sale=Math.round((p.price+size[2])*(100-p.off)/100);
+ cart.push({key:Date.now()+Math.random(),id,qty:1,sizeAr:size[0],sizeEn:size[1],sizeExtra:size[2],extras:selected,extraTotal,oldPrice:p.price+size[2],salePrice:sale,discount:(p.price+size[2])-sale});
+ updateCart();
+ const old=btn.textContent;
+ btn.classList.add('added');
+ btn.textContent=language==='ar'?'✓ تمت الإضافة':'✓ Added';
+ setTimeout(()=>{btn.classList.remove('added');btn.textContent=language==='ar'?'＋ أضف للطلب':'＋ Add to Order'},1500);
+}
+function calculations(){
+ return cart.reduce((a,x)=>{
+ a.old+=x.oldPrice*x.qty;
+ a.sale+=x.salePrice*x.qty;
+ a.extra+=x.extraTotal*x.qty;
+ a.discount+=x.discount*x.qty;
+ return a;
+ },{old:0,sale:0,extra:0,discount:0});
+}
 function updateCart(){
- document.getElementById('cartCount').textContent=cart.reduce((s,x)=>s+x.qty,0);
- document.getElementById('cartTotal').textContent=cart.reduce((s,x)=>s+x.price*x.qty,0);
-
- let box=document.getElementById('cartItems');
- box.innerHTML='';
- if(cart.length===0){
-  box.innerHTML='<p class="center">السلة فارغة</p>';
-  return;
- }
-
- cart.forEach((x,i)=>{
-  box.innerHTML+=`
-  <div class="cart-item">
-   <strong>${x.name}</strong><br>
-   الحجم: ${x.size} | الإضافة: ${x.extra}<br>
-   السعر: ${x.price} جنيه × ${x.qty}
-   <button class="category-btn" onclick="changeQty(${i},-1)">−</button>
-   <button class="category-btn" onclick="changeQty(${i},1)">+</button>
-   <button class="category-btn" onclick="removeItem(${i})">حذف</button>
-  </div>`;
- });
+ const count=cart.reduce((s,x)=>s+x.qty,0);
+ document.getElementById('cartButton').textContent=(language==='ar'?'🛒 الطلبات (':'🛒 Cart (')+count+')';
+ const area=document.getElementById('cartItems');
+ area.innerHTML=cart.length?cart.map(x=>{
+ const p=products.find(a=>a.id===x.id);
+ const extrasText=x.extras.map(e=>language==='ar'?e.ar:e.en).join('، ')|| (language==='ar'?'بدون إضافات':'No extras');
+ return `<div class="cart-row">
+ <div><strong>${p[language]}</strong><br><small>${language==='ar'?'الحجم: ':'Size: '}${language==='ar'?x.sizeAr:x.sizeEn} — ${extrasText}</small></div>
+ <div class="quantity">
+ <button onclick="changeQty('${x.key}',1)">+</button><span>${x.qty}</span>
+ <button onclick="changeQty('${x.key}',-1)">−</button>
+ </div>
+ <span class="price">${(x.salePrice+x.extraTotal)*x.qty} ${language==='ar'?'جنيه':'EGP'}</span>
+ <button class="remove" onclick="removeItem('${x.key}')">${language==='ar'?'حذف':'Remove'}</button>
+ </div>`;
+ }).join(''):`<p class="empty">${language==='ar'?'لم تضف أي أصناف بعد':'Your cart is empty'}</p>`;
+ const c=calculations();
+ document.getElementById('cartTotal').textContent=(language==='ar'?'الإجمالي بعد الخصم: ':'Total after discount: ')+(c.sale+c.extra)+(language==='ar'?' جنيه':' EGP');
 }
-
-function changeQty(i,n){
- cart[i].qty+=n;
- if(cart[i].qty<=0)cart.splice(i,1);
+function changeQty(key,n){
+ const item=cart.find(x=>String(x.key)===key);
+ if(!item)return;
+ item.qty+=n;
+ if(item.qty<=0)cart=cart.filter(x=>x!==item);
  updateCart();
 }
-function removeItem(i){cart.splice(i,1);updateCart()}
-function clearCart(){cart=[];updateCart()}
-function openCart(){updateCart();showScreen('cartScreen')}
-function backToMenu(){showScreen('menuScreen')}
-
-function goToCheckout(){
- if(cart.length===0){alert('السلة فارغة');return}
- showScreen('checkoutScreen');
+function removeItem(key){cart=cart.filter(x=>String(x.key)!==key);updateCart()}
+function toggleCart(){
+ const panel=document.getElementById('cartPanel');
+ panel.style.display=panel.style.display==='block'?'none':'block';
+ panel.scrollIntoView({behavior:'smooth',block:'center'});
 }
-
 function finishOrder(){
- if(cart.length===0)return;
-
- let total=cart.reduce((s,x)=>s+x.price*x.qty,0);
- let rows='';
-
- cart.forEach(x=>{
-  rows+=`<tr><td>${x.name}<br><small>${x.size} - ${x.extra}</small></td><td>${x.qty}</td><td>${x.price*x.qty} جنيه</td></tr>`;
- });
-
- document.getElementById('invoiceRows').innerHTML=rows;
- document.getElementById('invoiceTotal').textContent=total;
- document.getElementById('invoiceDate').textContent='التاريخ: '+new Date().toLocaleString('ar-EG');
- document.getElementById('invoiceCustomer').textContent='اسم العميل: '+(document.getElementById('customerName').value||'عميل MOKA');
- document.getElementById('invoiceType').textContent='نوع الطلب: '+document.getElementById('orderType').value;
- document.getElementById('invoicePayment').textContent='طريقة الدفع المختارة: '+document.getElementById('paymentMethod').value;
- document.getElementById('invoiceNotes').textContent='ملاحظات: '+document.getElementById('orderNotes').value;
-
- showScreen('invoiceScreen');
+ if(!cart.length){alert(language==='ar'?'أضف صنفاً أولاً':'Please add an item first');return}
+ const result=document.getElementById('orderResult');
+ result.innerHTML=`
+ <h2>${language==='ar'?'اختار طريقة استلام طلبك':'Choose How to Enjoy Your Order'}</h2>
+ <div class="order-type">
+ <button onclick="selectOrderType('dine',this)">🍽️ ${language==='ar'?'داخل المطعم':'Dine In'}</button>
+ <button onclick="selectOrderType('takeaway',this)">🥡 ${language==='ar'?'تيك أواي':'Takeaway'}</button>
+ </div>
+ <h3 style="color:var(--gold);text-align:center;margin:15px 0 8px">${language==='ar'?'طريقة الدفع':'Payment Method'}</h3>
+ <div class="order-type">
+ <button onclick="selectPayment('cash',this)">💵 ${language==='ar'?'نقدًا':'Cash'}</button>
+ <button onclick="selectPayment('card',this)">💳 ${language==='ar'?'بطاقة بنكية':'Bank Card'}</button>
+ <button onclick="selectPayment('wallet',this)">📱 ${language==='ar'?'محفظة إلكترونية':'E-Wallet'}</button>
+ </div>
+ <p style="text-align:center;color:#aaa">${language==='ar'?'اختار طريقة الاستلام والدفع ثم اعرض الفاتورة':'Choose order type and payment, then view your invoice'}</p>
+ <button class="finish" onclick="showFinalOrder()">${language==='ar'?'عرض الفاتورة':'View Invoice'}</button>`;
+ result.style.display='block';
+ document.getElementById('cartPanel').style.display='none';
+ result.scrollIntoView({behavior:'smooth'});
 }
-
+function selectPayment(method,btn){paymentMethod=method;document.querySelectorAll('.order-result .order-type button').forEach(b=>{if(b.textContent.includes('💵')||b.textContent.includes('💳')||b.textContent.includes('📱'))b.classList.remove('selected')});btn.classList.add('selected');}
+function selectOrderType(type,btn){
+ orderType=type;
+ document.querySelectorAll('.order-type button').forEach(b=>b.classList.remove('selected'));
+ btn.classList.add('selected');
+}
+function showFinalOrder(){
+ if(!orderType){alert(language==='ar'?'اختار طريقة استلام الطلب أولاً':'Please choose an order type first');return}
+ const ar=language==='ar',c=calculations();
+ const rows=cart.map(x=>{
+ const p=products.find(a=>a.id===x.id);
+ const extrasText=x.extras.length?x.extras.map(e=>ar?e.ar:e.en).join('، '):(ar?'بدون إضافات':'No extras');
+ return `<div class="line"><div><b>${p[language]}</b><br><small>${ar?'الحجم: ':'Size: '}${ar?x.sizeAr:x.sizeEn} | ${extrasText} × ${x.qty}</small></div><span>${(x.salePrice+x.extraTotal)*x.qty} ${ar?'جنيه':'EGP'}</span></div>`;
+ }).join('');
+ const final=c.sale+c.extra;
+ document.getElementById('orderResult').innerHTML=`
+ <h2>${ar?'فاتورتك النهائية':'Your Final Invoice'}</h2>
+ <div class="invoice">
+ <h3>MOKA</h3>
+ <p style="text-align:center;color:#777">${ar?'فاتورة طلب':'Order Invoice'} • ${new Date().toLocaleString(ar?'ar-EG':'en-US')}</p>
+ <div class="line"><b>${ar?'طريقة الطلب':'Order Type'}</b><span>${orderType==='dine'?(ar?'داخل المطعم':'Dine In'):(ar?'تيك أواي':'Takeaway')}</span></div>
+ <div class="line"><b>${ar?'طريقة الدفع':'Payment Method'}</b><span>${paymentMethod==='cash'?(ar?'نقدًا':'Cash'):paymentMethod==='card'?(ar?'بطاقة بنكية':'Bank Card'):(ar?'محفظة إلكترونية':'E-Wallet')}</span></div>
+ ${rows}
+ <div class="line"><span>${ar?'السعر الأصلي قبل الخصم':'Original Price'}</span><b>${c.old} ${ar?'جنيه':'EGP'}</b></div>
+ <div class="line"><span>${ar?'قيمة الخصم':'Discount'}</span><b class="saving">- ${c.discount} ${ar?'جنيه':'EGP'}</b></div>
+ <div class="line"><span>${ar?'الإضافات':'Extras'}</span><b>${c.extra} ${ar?'جنيه':'EGP'}</b></div>
+ <div class="line"><span>${ar?'السعر بعد الخصم':'Price After Discount'}</span><b>${c.sale} ${ar?'جنيه':'EGP'}</b></div>
+ <div class="line grand"><span>${ar?'الإجمالي النهائي':'FINAL TOTAL'}</span><span>${final} ${ar?'جنيه':'EGP'}</span></div>
+ <p class="saving" style="text-align:center;margin-top:12px">${ar?'وفرت':'You saved'} ${c.discount} ${ar?'جنيه':'EGP'} 🎉</p>
+ </div>
+ <button class="finish" onclick="window.print()">${ar?'🖨️ طباعة الفاتورة':'🖨️ Print Invoice'}</button>
+ <button class="outline-btn" style="width:100%;margin-top:10px" onclick="newOrder()">${ar?'طلب جديد':'New Order'}</button>`;
+ document.getElementById('orderResult').scrollIntoView({behavior:'smooth'});
+}
 function newOrder(){
- cart=[];
- updateCart();
- document.getElementById('customerName').value='';
- document.getElementById('orderNotes').value='';
- showScreen('menuScreen');
- showCategory('all');
+ cart=[];orderType='';paymentMethod='cash';updateCart();
+ document.getElementById('orderResult').style.display='none';
+ document.getElementById('cartPanel').style.display='none';
+ document.getElementById('menuArea').scrollIntoView({behavior:'smooth'});
 }
-
-updateCart();
 </script>
-
 </body>
 </html>
