@@ -8,53 +8,46 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#111;color:#fff;font-family:'Cairo',sans-serif}
-button{font-family:inherit;cursor:pointer}
-.gold{color:#d6ad55}
-header{text-align:center;padding:25px 10px;background:#080808;border-bottom:2px solid #bd963e}
-.logo{font-size:48px;font-weight:900;letter-spacing:5px;color:#d6ad55}
+body{margin:0;background:#101010;color:white;font-family:'Cairo',sans-serif}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+header{text-align:center;background:#080808;padding:22px;border-bottom:2px solid #c49b45}
+.logo{font-size:48px;font-weight:900;color:#d6ad55;letter-spacing:5px}
 .subtitle{color:#ddd}
-.screen{display:none;padding:20px;max-width:1100px;margin:auto}
+.screen{display:none;padding:20px;max-width:1150px;margin:auto}
 .screen.active{display:block}
 .center{text-align:center}
-.main-btn,.category-btn,.action-btn{
-background:#c49b45;color:#111;border:0;border-radius:10px;
-padding:12px 22px;margin:6px;font-weight:800
-}
-.main-btn{font-size:18px;min-width:140px}
-.category-btn{background:#242424;color:#e4bd68;border:1px solid #9e7b36}
-.category-btn.active,.category-btn:hover{background:#c49b45;color:#111}
 h2{color:#d6ad55;text-align:center}
+.main-btn,.action-btn{background:#c49b45;color:#111;border:0;border-radius:9px;padding:11px 20px;margin:5px;font-weight:800}
+.main-btn{font-size:17px}
+.category-btn{background:#242424;color:#e4bd68;border:1px solid #987638;border-radius:9px;padding:10px 15px;margin:5px}
+.category-btn.active,.category-btn:hover{background:#c49b45;color:#111}
 .categories{display:flex;flex-wrap:wrap;justify-content:center;margin:15px 0}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}
 .card{background:#202020;border:1px solid #8e6c30;border-radius:14px;overflow:hidden;position:relative}
-.card img{width:100%;height:165px;object-fit:cover}
-.card-content{padding:12px}
-.card h3{margin:4px 0;color:#e3bd6c}
-.price{color:#e8c36e;font-weight:bold;font-size:18px}
+.card img{width:100%;height:170px;object-fit:cover}
+.card-content{padding:13px}
+.card h3{color:#e3bd6c;margin:5px 0}
+.price{color:#e8c36e;font-size:18px;font-weight:bold}
 .old-price{text-decoration:line-through;color:#999;margin-left:8px}
-.heart{position:absolute;top:10px;left:10px;background:#111;color:#fff;border:1px solid #d6ad55;border-radius:50%;width:38px;height:38px;font-size:21px}
+.heart{position:absolute;top:10px;left:10px;background:#111;color:white;border:1px solid #d6ad55;border-radius:50%;width:39px;height:39px;font-size:23px}
 .heart.selected{color:#ff526b}
-.stars{color:#e7b94f;margin:7px 0}
-.stars button{background:none;border:0;color:#e7b94f;font-size:20px;padding:0 2px}
-.card select,.card input,.field{
-width:100%;padding:10px;margin:6px 0;border-radius:8px;
-border:1px solid #9b7938;background:#111;color:#fff;font-family:inherit
-}
+.stars{color:#e7b94f;margin:8px 0}
+.stars button{background:none;border:0;color:#e7b94f;font-size:22px;padding:0 2px}
+.card select,.field{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #9b7938;background:#111;color:white}
 .card .action-btn{width:100%}
-.top-actions{text-align:center;margin:10px}
-.panel{background:#202020;border:1px solid #987638;border-radius:12px;padding:15px;margin:15px auto;max-width:700px}
-.cart-item{border-bottom:1px solid #555;padding:10px 0}
+.top-actions{text-align:center;margin:15px}
+.panel{background:#202020;border:1px solid #987638;border-radius:12px;padding:16px;margin:15px auto;max-width:750px}
+.cart-item{border-bottom:1px solid #555;padding:12px 0}
 .total{font-size:22px;color:#e6bd65;font-weight:bold}
-.hidden{display:none!important}
-.invoice{background:#fff;color:#111;padding:20px;border-radius:10px;max-width:650px;margin:15px auto}
+.invoice{background:white;color:#111;padding:22px;border-radius:10px;max-width:700px;margin:15px auto}
 .invoice h2{color:#111}
 .invoice table{width:100%;border-collapse:collapse}
-.invoice td,.invoice th{border-bottom:1px solid #bbb;padding:8px;text-align:right}
+.invoice td,.invoice th{border-bottom:1px solid #bbb;padding:9px;text-align:right}
 .invoice .total{color:#111}
 footer{text-align:center;color:#999;padding:20px}
 @media print{
-body{background:#fff}
+body{background:white}
 body *{visibility:hidden}
 #invoice,#invoice *{visibility:visible}
 #invoice{position:absolute;top:0;right:0;width:100%;margin:0}
@@ -65,120 +58,109 @@ body *{visibility:hidden}
 <body>
 
 <header>
-  <div class="logo">MOKA</div>
-  <div class="subtitle">مطعم موكا | MOKA Restaurant</div>
+<div class="logo">MOKA</div>
+<div class="subtitle">مطعم موكا | MOKA Restaurant</div>
 </header>
 
-<!-- شاشة اللغة -->
 <section id="languageScreen" class="screen active center">
-  <h2>أهلاً بك في MOKA</h2>
-  <h2>Welcome to MOKA</h2>
-  <p>اختر اللغة | Choose your language</p>
-  <button class="main-btn" onclick="setLanguage('ar')">العربية</button>
-  <button class="main-btn" onclick="setLanguage('en')">English</button>
+<h2>أهلاً بك في MOKA</h2>
+<h2>Welcome to MOKA</h2>
+<p>اختر اللغة | Choose your language</p>
+<button class="main-btn" onclick="setLanguage('ar')">العربية</button>
+<button class="main-btn" onclick="setLanguage('en')">English</button>
 </section>
 
-<!-- شاشة القائمة -->
 <section id="menuScreen" class="screen">
-  <h2 id="menuTitle">قائمة الطعام</h2>
-
-  <div class="categories" id="categories">
-    <button class="category-btn active" onclick="showCategory('all',this)">الكل</button>
-    <button class="category-btn" onclick="showCategory('meals',this)">وجبات</button>
-    <button class="category-btn" onclick="showCategory('combo',this)">وجبات كومبو</button>
-    <button class="category-btn" onclick="showCategory('pizza',this)">بيتزا</button>
-    <button class="category-btn" onclick="showCategory('grill',this)">مشويات</button>
-    <button class="category-btn" onclick="showCategory('starters',this)">مقبلات</button>
-    <button class="category-btn" onclick="showCategory('salads',this)">سلطات</button>
-    <button class="category-btn" onclick="showCategory('desserts',this)">حلويات</button>
-    <button class="category-btn" onclick="showCategory('drinks',this)">مشروبات</button>
-    <button class="category-btn" onclick="showCategory('favorites',this)">❤️ المفضلة</button>
-  </div>
-
-  <div class="top-actions">
-    <button class="category-btn" onclick="openCart()">🛒 السلة (<span id="cartCount">0</span>)</button>
-    <button class="category-btn" onclick="openCart()">عرض الطلبات</button>
-  </div>
-
-  <div class="products" id="products"></div>
+<h2 id="menuTitle">قائمة الطعام</h2>
+<div class="categories">
+<button class="category-btn active" onclick="showCategory('all',this)" data-ar="الكل" data-en="All">الكل</button>
+<button class="category-btn" onclick="showCategory('meals',this)" data-ar="وجبات" data-en="Meals">وجبات</button>
+<button class="category-btn" onclick="showCategory('combo',this)" data-ar="وجبات كومبو" data-en="Combo Meals">وجبات كومبو</button>
+<button class="category-btn" onclick="showCategory('pizza',this)" data-ar="بيتزا" data-en="Pizza">بيتزا</button>
+<button class="category-btn" onclick="showCategory('grill',this)" data-ar="مشويات" data-en="Grill">مشويات</button>
+<button class="category-btn" onclick="showCategory('starters',this)" data-ar="مقبلات" data-en="Starters">مقبلات</button>
+<button class="category-btn" onclick="showCategory('salads',this)" data-ar="سلطات" data-en="Salads">سلطات</button>
+<button class="category-btn" onclick="showCategory('desserts',this)" data-ar="حلويات" data-en="Desserts">حلويات</button>
+<button class="category-btn" onclick="showCategory('drinks',this)" data-ar="مشروبات" data-en="Drinks">مشروبات</button>
+<button class="category-btn" onclick="showCategory('favorites',this)">❤️ المفضلة</button>
+</div>
+<div class="top-actions">
+<button class="category-btn" onclick="openCart()">🛒 <span id="cartLabel">السلة</span> (<span id="cartCount">0</span>)</button>
+</div>
+<div class="products" id="products"></div>
 </section>
 
-<!-- شاشة السلة -->
 <section id="cartScreen" class="screen">
-  <h2>طلباتك | Your Order</h2>
-  <div class="panel">
-    <div id="cartItems"></div>
-    <p class="total">الإجمالي: <span id="cartTotal">0</span> جنيه</p>
-    <button class="main-btn" onclick="clearCart()">إفراغ السلة</button>
-    <button class="main-btn" onclick="backToMenu()">العودة للقائمة</button>
-    <button class="main-btn" onclick="goToCheckout()">تأكيد الطلب</button>
-  </div>
+<h2>طلباتك | Your Order</h2>
+<div class="panel">
+<div id="cartItems"></div>
+<p class="total">الإجمالي: <span id="cartTotal">0</span> جنيه</p>
+<button class="main-btn" onclick="clearCart()">إفراغ السلة</button>
+<button class="main-btn" onclick="backToMenu()">العودة للقائمة</button>
+<button class="main-btn" onclick="goToCheckout()">تأكيد الطلب</button>
+</div>
 </section>
 
-<!-- شاشة تأكيد الطلب -->
 <section id="checkoutScreen" class="screen">
-  <h2>تأكيد الطلب | Checkout</h2>
-  <div class="panel">
-    <label>نوع الطلب | Order type</label>
-    <select class="field" id="orderType">
-      <option value="داخل المطعم">داخل المطعم</option>
-      <option value="تيك أواي">تيك أواي</option>
-    </select>
+<h2>تأكيد الطلب | Checkout</h2>
+<div class="panel">
+<label>نوع الطلب | Order type</label>
+<select class="field" id="orderType">
+<option value="داخل المطعم">داخل المطعم</option>
+<option value="تيك أواي">تيك أواي</option>
+</select>
 
-    <label>طريقة الدفع | Payment method</label>
-    <select class="field" id="paymentMethod">
-      <option value="نقداً">نقداً عند الاستلام</option>
-      <option value="بطاقة بنكية">بطاقة بنكية</option>
-      <option value="محفظة إلكترونية">محفظة إلكترونية</option>
-    </select>
+<label>طريقة الدفع | Payment method</label>
+<select class="field" id="paymentMethod">
+<option value="نقداً">نقداً عند الاستلام</option>
+<option value="بطاقة بنكية">بطاقة بنكية</option>
+<option value="محفظة إلكترونية">محفظة إلكترونية</option>
+</select>
 
-    <label>اسم العميل | Customer name</label>
-    <input class="field" id="customerName" placeholder="اكتب اسمك">
+<label>اسم العميل | Customer name</label>
+<input class="field" id="customerName" placeholder="اكتب اسمك">
 
-    <label>ملاحظات | Notes</label>
-    <textarea class="field" id="orderNotes" rows="3" placeholder="أي ملاحظات على الطلب"></textarea>
+<label>ملاحظات | Notes</label>
+<textarea class="field" id="orderNotes" rows="3" placeholder="أي ملاحظات على الطلب"></textarea>
 
-    <button class="main-btn" onclick="finishOrder()">إنهاء الطلب</button>
-    <button class="main-btn" onclick="openCart()">رجوع</button>
-  </div>
+<button class="main-btn" onclick="finishOrder()">إنهاء الطلب</button>
+<button class="main-btn" onclick="openCart()">رجوع</button>
+</div>
 </section>
 
-<!-- الفاتورة -->
 <section id="invoiceScreen" class="screen">
-  <h2>فاتورة MOKA</h2>
-  <div class="invoice" id="invoice">
-    <h2>MOKA Restaurant</h2>
-    <p>مطعم موكا</p>
-    <p id="invoiceDate"></p>
-    <p id="invoiceCustomer"></p>
-    <p id="invoiceType"></p>
-    <p id="invoicePayment"></p>
-    <table>
-      <thead>
-        <tr><th>الصنف</th><th>العدد</th><th>السعر</th></tr>
-      </thead>
-      <tbody id="invoiceRows"></tbody>
-    </table>
-    <p id="invoiceNotes"></p>
-    <p class="total">الإجمالي: <span id="invoiceTotal"></span> جنيه</p>
-    <p style="text-align:center">شكراً لاختياركم MOKA ❤️</p>
-  </div>
-  <div class="center">
-    <button class="main-btn" onclick="window.print()">طباعة الفاتورة</button>
-    <button class="main-btn" onclick="newOrder()">طلب جديد</button>
-  </div>
+<h2>فاتورة MOKA</h2>
+<div class="invoice" id="invoice">
+<h2>MOKA Restaurant</h2>
+<p>مطعم موكا</p>
+<p id="invoiceDate"></p>
+<p id="invoiceCustomer"></p>
+<p id="invoiceType"></p>
+<p id="invoicePayment"></p>
+<table>
+<thead><tr><th>الصنف</th><th>العدد</th><th>السعر</th></tr></thead>
+<tbody id="invoiceRows"></tbody>
+</table>
+<p id="invoiceNotes"></p>
+<p class="total">الإجمالي: <span id="invoiceTotal"></span> جنيه</p>
+<p style="text-align:center">شكراً لاختياركم MOKA ❤️</p>
+</div>
+<div class="center">
+<button class="main-btn" onclick="window.print()">طباعة الفاتورة</button>
+<button class="main-btn" onclick="newOrder()">طلب جديد</button>
+</div>
 </section>
 
 <footer>© MOKA Restaurant</footer>
 
 <script>
-let language = 'ar';
-let currentCategory = 'all';
-let cart = [];
-let favorites = JSON.parse(localStorage.getItem('mokaFavorites') || '[]');
-let ratings = JSON.parse(localStorage.getItem('mokaRatings') || '{}');
+let language='ar';
+let currentCategory='all';
+let cart=[];
+let favorites=JSON.parse(localStorage.getItem('mokaFavorites')||'[]');
+let ratings=JSON.parse(localStorage.getItem('mokaRatings')||'{}');
 
-const products = [
+const products=[
 {id:1,cat:'meals',ar:'وجبة برجر',en:'Burger Meal',price:180,off:10,img:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600'},
 {id:2,cat:'meals',ar:'وجبة فراخ كرسبي',en:'Crispy Chicken Meal',price:160,off:0,img:'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600'},
 {id:3,cat:'meals',ar:'وجبة شاورما فراخ',en:'Chicken Shawarma Meal',price:150,off:0,img:'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600'},
@@ -227,6 +209,10 @@ function setLanguage(lang){
  document.getElementById('languageScreen').classList.remove('active');
  document.getElementById('menuScreen').classList.add('active');
  document.getElementById('menuTitle').textContent=lang==='ar'?'قائمة الطعام':'Our Menu';
+ document.getElementById('cartLabel').textContent=lang==='ar'?'السلة':'Cart';
+ document.querySelectorAll('.category-btn[data-ar]').forEach(b=>{
+  b.textContent=lang==='ar'?b.dataset.ar:b.dataset.en;
+ });
  showCategory('all');
 }
 
@@ -237,8 +223,14 @@ function showScreen(id){
 
 function showCategory(cat,btn){
  currentCategory=cat;
- document.querySelectorAll('.category-btn').forEach(b=>b.classList.remove('active'));
+ document.querySelectorAll('.categories .category-btn').forEach(b=>b.classList.remove('active'));
  if(btn)btn.classList.add('active');
+ else{
+  const buttons=document.querySelectorAll('.categories .category-btn');
+  buttons.forEach(b=>{
+   if(b.getAttribute('onclick').includes("'"+cat+"'"))b.classList.add('active');
+  });
+ }
 
  let list=products.filter(p=>{
   if(cat==='all')return true;
@@ -250,7 +242,7 @@ function showCategory(cat,btn){
  container.innerHTML='';
 
  if(list.length===0){
-  container.innerHTML='<p class="center">لا توجد أصناف في هذا القسم حتى الآن</p>';
+  container.innerHTML='<p class="center">لا توجد أصناف في هذا القسم حالياً</p>';
   return;
  }
 
@@ -292,11 +284,8 @@ function showCategory(cat,btn){
 }
 
 function toggleFavorite(id){
- if(favorites.includes(id)){
-  favorites=favorites.filter(x=>x!==id);
- }else{
-  favorites.push(id);
- }
+ if(favorites.includes(id))favorites=favorites.filter(x=>x!==id);
+ else favorites.push(id);
  localStorage.setItem('mokaFavorites',JSON.stringify(favorites));
  showCategory(currentCategory);
 }
@@ -333,6 +322,11 @@ function updateCart(){
 
  let box=document.getElementById('cartItems');
  box.innerHTML='';
+ if(cart.length===0){
+  box.innerHTML='<p class="center">السلة فارغة</p>';
+  return;
+ }
+
  cart.forEach((x,i)=>{
   box.innerHTML+=`
   <div class="cart-item">
@@ -355,6 +349,7 @@ function removeItem(i){cart.splice(i,1);updateCart()}
 function clearCart(){cart=[];updateCart()}
 function openCart(){updateCart();showScreen('cartScreen')}
 function backToMenu(){showScreen('menuScreen')}
+
 function goToCheckout(){
  if(cart.length===0){alert('السلة فارغة');return}
  showScreen('checkoutScreen');
@@ -392,5 +387,6 @@ function newOrder(){
 
 updateCart();
 </script>
+
 </body>
 </html>
